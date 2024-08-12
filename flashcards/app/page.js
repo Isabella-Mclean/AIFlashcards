@@ -2,6 +2,7 @@ import * as React from 'react';
 import Head from 'next/head';
 import { Container,Typography,Box,Button,Grid,AppBar,Toolbar,Card, CardContent } from '@mui/material';
 import FlashOnIcon from '@mui/icons-material/FlashOn';
+import { SignedOut,SignedIn,UserButton } from '@clerk/nextjs';
 
 export default function Home() {
   return (
@@ -19,11 +20,18 @@ export default function Home() {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Flashcards SaaS
         </Typography>
+        <SignedOut>
         <Button color="inherit">Pricing</Button>
-        <Button color="inherit" href="/sign-in">Login</Button>
+        <Button color="inherit" href="/sign-in">
+          Login
+        </Button>
         <Button color="inherit" variant="outlined" sx={{ ml: 2 }} href="/sign-up">
           Sign Up
         </Button>
+        </SignedOut>
+        <SignedIn>
+          <UserButton/>
+        </SignedIn>
       </Toolbar>
     </AppBar>
 

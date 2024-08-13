@@ -5,7 +5,6 @@ import Head from 'next/head';
 import { Container, Typography, Box, Button, Grid, AppBar, Toolbar, Card, CardContent } from '@mui/material';
 import FlashOnIcon from '@mui/icons-material/FlashOn';
 import { SignedOut, SignedIn, UserButton } from '@clerk/nextjs';
-import { loadStripe } from '@stripe/stripe-js';
 import getStripe from '@/utils/get-stripejs';
 
 export default function Home(){
@@ -112,7 +111,7 @@ export default function Home(){
                     Multi-Device Access
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Access your flashcards on the go, whether you're on your phone, tablet, or computer.
+                    Access your flashcards on the go, whether you are on your phone, tablet, or computer.
                   </Typography>
                 </CardContent>
               </Card>

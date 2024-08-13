@@ -4,8 +4,10 @@ import * as React from 'react';
 import Head from 'next/head';
 import { Container, Typography, Box, Button, Grid, AppBar, Toolbar, Card, CardContent } from '@mui/material';
 import FlashOnIcon from '@mui/icons-material/FlashOn';
-import { SignedOut, SignedIn, UserButton } from '@clerk/nextjs';
+import { SignedOut, SignedIn, UserButton,useUser } from '@clerk/nextjs';
 import getStripe from '@/utils/get-stripejs';
+import { useRouter } from 'next/navigation';
+
 
 export default function Home(){
   //Handles when the user presses to upgrade to a pro account
@@ -28,6 +30,18 @@ export default function Home(){
       console.warn(error.message)
     }
   }
+
+  // Inside your component function
+  const { isSignedIn } = useUser();
+  const router = useRouter();
+
+  const handleGetStarted = () => {
+    if (isSignedIn) {
+      router.push('/generate');
+    } else {
+      router.push('/sign-in');
+    }
+  };
 
   return (
     <>
@@ -67,7 +81,7 @@ export default function Home(){
           <Typography variant="h6" component="p" gutterBottom>
             Enhance your learning by generating flashcards from any text in seconds.
           </Typography>
-          <Button variant="contained" color="primary" size="large" href="/sign-in" sx={{ mt: 3 }} >
+          <Button variant="contained" color="primary" size="large" onClick={handleGetStarted}  sx={{ mt: 3 }} >
             Get Started for Free
           </Button>
         </Container>
@@ -145,7 +159,7 @@ export default function Home(){
                   <br />
                   - Basic support
                 </Typography>
-                <Button variant="outlined" color="primary" href="/sign-in">
+                <Button variant="outlined" color="primary" onClick={handleGetStarted}>
                   Get Started
                 </Button>
               </Card>

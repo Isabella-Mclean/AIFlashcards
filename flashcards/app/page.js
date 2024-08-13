@@ -10,8 +10,15 @@ import { useRouter } from 'next/navigation';
 
 
 export default function Home(){
+  const { isSignedIn } = useUser();
+  const router = useRouter();
+
   //Handles when the user presses to upgrade to a pro account
   const handleSubmit = async () => {
+    if(!isSignedIn) {
+      return router.push('/sign-in');
+    }
+    
     //Testing using dynamic origins
      //replacing headers: { origin: 'http://localhost:3000' }, with headers: { origin: currentOrigin },
     const currentOrigin = window.location.origin; // dynamically get the current origin
@@ -31,9 +38,7 @@ export default function Home(){
     }
   }
 
-  // Inside your component function
-  const { isSignedIn } = useUser();
-  const router = useRouter();
+  
 
   const handleGetStarted = () => {
     if (isSignedIn) {

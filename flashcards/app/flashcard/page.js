@@ -34,7 +34,7 @@ export default function Flashcard() {
             setFlashcards(flashcards);
         }
         getFlashcard();
-    }, [search, user]);
+    }, [search, user, isSignedIn, router]);
 
     //Flips the flashcards when they are clicked
     const handleCardClick = (id) => {

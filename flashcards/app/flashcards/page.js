@@ -31,7 +31,7 @@ export default function Flashcards() {
       }
     }
     getFlashcards();
-  }, [user]);
+  }, [user,isSignedIn, router]);
 
   // If the user signs out while on the page
   if (!isLoaded || !isSignedIn) {

@@ -15,10 +15,12 @@ export default function Generate() {
     const [modalOpen, setModalOpen] = useState(false);
     const router = useRouter();
 
+     //If the user isn't signed in then send them back the home page
     if (!isSignedIn || !user) {
         router.push('/');
     }
 
+    //Generate the flashcards after the user has submitted a flashcard set name
     const handleSubmit = async () => {
 
         await fetch('/api/generate', {
@@ -32,6 +34,8 @@ export default function Generate() {
             .then((data) => setFlashcards(data || []));
     };
 
+    //Handles the saving of the flashcards to the firebase
+    //Ensures an appropriate and useable set name is used
     const handleSave = async () => {
         if (!name.trim()) return alert("Please provide a name for your flashcard collection");
 
@@ -65,6 +69,7 @@ export default function Generate() {
         router.push('/flashcards');
     };
 
+    //Handles when the user clicks a flashcard to flip it
     const handleFlip = (index) => {
         setFlipped(prevState => ({
             ...prevState,

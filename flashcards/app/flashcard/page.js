@@ -7,6 +7,7 @@ import { useSearchParams } from 'next/navigation';
 import { Container, Grid, Card, CardContent, Typography, CardActionArea, Box } from '@mui/material';
 import db from '@/firebase';
 
+
 export default function Flashcard() {
     const { isLoaded, isSignedIn, user } = useUser();
     const [flashcards, setFlashcards] = useState([]);
@@ -18,11 +19,12 @@ export default function Flashcard() {
 
     useEffect(() => {
         async function getFlashcard() {
+            //If the user isn't signed in then send them back the home page
             if (!search || isSignedIn || !user) {
                 router.push('/');
             }
             
-
+            //Collect the flashcards from the firebase
             const colRef = collection(doc(collection(db, 'users'), user.id), search);
             const docs = await getDocs(colRef);
             const flashcards = [];
@@ -34,6 +36,7 @@ export default function Flashcard() {
         getFlashcard();
     }, [search, user]);
 
+    //Flips the flashcards when they are clicked
     const handleCardClick = (id) => {
         setFlipped((prev) => ({
             ...prev,

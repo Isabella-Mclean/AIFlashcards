@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 import OpenAI from "openai";
 
 const systemPrompt = `
-You are a flashcard creator, take in text and create multiple flashcards from it. Make sure to create 10 flashcards.
+You are a flashcard creator, take in text and create multiple flashcards from it. Make sure to create 20 flashcards.
 
 You should return in the following json format:
 {
@@ -15,6 +15,9 @@ You should return in the following json format:
 }
 `
 
+// We connect to OpenAI, so that the user can enter a text, such as a textbook page, 
+// Then openai will generate 20 flashcards based on the text
+// These are returned to /generate
 export async function POST(req){
     const openai = new OpenAI();
     const data = await req.text()

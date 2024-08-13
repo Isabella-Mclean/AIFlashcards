@@ -5,6 +5,8 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Container, Typography, Box, CircularProgress } from '@mui/material';
 import getStripe from '@/utils/get-stripejs';
 
+//This page is for when a user (tries to) submit a payment via stripe
+//They will receive a message on the page, depending on whether the payment is successful or not
 export default function Result() {
     const router = useRouter()
     const searchParams = useSearchParams()
@@ -56,6 +58,7 @@ export default function Result() {
         <Container maxWidth="sm" sx={{textAlign: 'center', mt: 4}}>
           {session.payment_status === 'paid' ? (
             <>
+              {/**If the payment is successful */}
               <Typography variant="h4">Thank you for your purchase!</Typography>
               <Box sx={{mt: 2}}>
                 <Typography variant="h6">Session ID: {session_id}</Typography>
@@ -67,6 +70,7 @@ export default function Result() {
             </>
           ) : (
             <>
+              {/** If the payment is not sucessful */}
               <Typography variant="h4">Payment failed</Typography>
               <Box sx={{mt: 2}}>
                 <Typography variant="body1">

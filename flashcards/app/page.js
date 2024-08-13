@@ -9,6 +9,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import getStripe from '@/utils/get-stripejs';
 
 export default function Home(){
+  //Handles when the user presses to upgrade to a pro account
   const handleSubmit = async () => {
     const checkoutSession = await fetch('/api/checkout_sessions', {
       method: 'POST',

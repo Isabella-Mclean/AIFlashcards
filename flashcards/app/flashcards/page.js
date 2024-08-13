@@ -14,7 +14,7 @@ export default function Flashcards() {
 
   useEffect(() => {
     async function getFlashcards() {
-      console.log(user)
+       //If the user isn't signed in then send them back the home page
       if (!isSignedIn) {
         router.push('/');
       }

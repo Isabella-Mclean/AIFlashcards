@@ -11,9 +11,12 @@ import getStripe from '@/utils/get-stripejs';
 export default function Home(){
   //Handles when the user presses to upgrade to a pro account
   const handleSubmit = async () => {
+    //Testing using dynamic origins
+     //replacing headers: { origin: 'http://localhost:3000' }, with headers: { origin: currentOrigin },
+    const currentOrigin = window.location.origin; // dynamically get the current origin
     const checkoutSession = await fetch('/api/checkout_sessions', {
       method: 'POST',
-      headers: { origin: 'http://localhost:3000' },
+      headers: { origin: currentOrigin },
     })
     const checkoutSessionJson = await checkoutSession.json()
   

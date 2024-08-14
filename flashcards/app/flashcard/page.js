@@ -20,7 +20,7 @@ export default function Flashcard() {
     useEffect(() => {
         async function getFlashcard() {
             //If the user isn't signed in then send them back the home page
-            if (!search || isSignedIn || !user) {
+            if (!isSignedIn) {
                 router.push('/');
             }
             
@@ -33,8 +33,10 @@ export default function Flashcard() {
             });
             setFlashcards(flashcards);
         }
-        getFlashcard();
-    }, [search, user, isSignedIn, router]);
+        if (isLoaded && isSignedIn && user) {
+            getFlashcard();
+          }
+    }, [search, user, isSignedIn, router, isLoaded]);
 
     //Flips the flashcards when they are clicked
     const handleCardClick = (id) => {

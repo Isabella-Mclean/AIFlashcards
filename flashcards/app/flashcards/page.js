@@ -30,8 +30,10 @@ export default function Flashcards() {
         await setDoc(docRef, { flashcards: [] });
       }
     }
-    getFlashcards();
-  }, [user,isSignedIn, router]);
+    if (isLoaded && isSignedIn && user) {
+      getFlashcards();
+    }
+  }, [user,isSignedIn, router, isLoaded]);
 
   // If the user signs out while on the page
   if (!isLoaded || !isSignedIn) {

@@ -7,11 +7,28 @@ import FlashOnIcon from '@mui/icons-material/FlashOn';
 import { SignedOut, SignedIn, UserButton,useUser } from '@clerk/nextjs';
 import getStripe from '@/utils/get-stripejs';
 import { useRouter } from 'next/navigation';
-
+import { useEffect } from 'react';
+import { collection, doc, setDoc, getDoc } from "firebase/firestore";
+import db from '@/firebase';
 
 export default function Home(){
-  const { isSignedIn } = useUser();
+  const { isSignedIn, isLoaded,user } = useUser();
   const router = useRouter();
+
+  //We set the account status of the user (FREE) when they load the page for the first time
+  //It will be updated to pro if they click upgrade and are successful
+  useEffect(() => {
+    async function addAccountStatus() {
+      const docRef = doc(collection(db, 'users'), user.id);
+      const docSnap = await getDoc(docRef);
+      if(!docSnap.exists()){
+        await setDoc(docRef, { flashcards: [], accountStatus:"FREE"});
+      }
+      
+    }if (isLoaded && isSignedIn) {
+      addAccountStatus();
+    }
+  },[isSignedIn, isLoaded,user]);
 
   //Handles when the user presses to upgrade to a pro account
   const handleSubmit = async () => {
@@ -47,6 +64,7 @@ export default function Home(){
       router.push('/sign-in');
     }
   };
+
 
   return (
     <>
@@ -155,7 +173,7 @@ export default function Home(){
                   Access basic features for personal use.
                 </Typography>
                 <Typography variant="h6" component="div" sx={{ my: 2 }}>
-                  $0 / month
+                  $0
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                   - Generate up to 50 flashcards per month
@@ -178,7 +196,7 @@ export default function Home(){
                   Unlock advanced features for power users.
                 </Typography>
                 <Typography variant="h6" component="div" sx={{ my: 2 }}>
-                  $10 / month
+                  $10
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                   - Unlimited flashcard generation

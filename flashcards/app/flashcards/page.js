@@ -25,9 +25,9 @@ export default function Flashcards() {
         // Get all collection names from doc
         const collections = docSnap.data().flashcards || [];
         setFlashcards(collections);
-      } else {
+      } else{
         // Create the user account
-        await setDoc(docRef, { flashcards: [] });
+        await setDoc(docRef, { flashcards: []});
       }
     }
     if (isLoaded && isSignedIn && user) {

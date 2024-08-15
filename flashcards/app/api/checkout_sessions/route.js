@@ -13,20 +13,16 @@ export async function POST(req) {
   try {
     // We'll implement the checkout session creation here
     const params = {
-        mode: 'subscription',
+        mode: 'payment',
         payment_method_types: ['card','paypal'],
         line_items: [
           {
             price_data: {
               currency: 'GBP',
               product_data: {
-                name: 'Pro subscription',
+                name: 'Pro payment',
               },
-              unit_amount: formatAmountForStripe(0.30, 'GBP'), // $0.30
-              recurring: {
-                interval: 'month',
-                interval_count: 1,
-              },
+              unit_amount: formatAmountForStripe(0.30, 'GBP'), // £0.30
             },
             quantity: 1,
           },

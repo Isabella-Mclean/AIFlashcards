@@ -51,6 +51,7 @@ export default function Generate() {
                 return;
             }else{
                 collections.push({name})
+                //Set the user status to free
                 batch.set(userDocRef, {flashcards: collections}, {merge: true})
             }
         }else{

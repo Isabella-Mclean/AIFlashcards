@@ -1,9 +1,13 @@
+'use client'
 import { SignUp } from "@clerk/nextjs";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import { useEffect, useState } from 'react';
+import { useUser } from "@clerk/nextjs";
 
 export default function Page() {
+
   return (
     <Container 
     sx={{

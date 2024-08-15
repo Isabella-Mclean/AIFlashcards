@@ -3,7 +3,9 @@
 import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Container, Typography, Box, CircularProgress } from '@mui/material';
-import getStripe from '@/utils/get-stripejs';
+import { collection, doc, setDoc, getDoc } from "firebase/firestore";
+import db from '@/firebase';
+import { useUser } from '@clerk/nextjs';
 
 //This page is for when a user (tries to) submit a payment via stripe
 //They will receive a message on the page, depending on whether the payment is successful or not
@@ -14,6 +16,17 @@ export default function Result() {
     const [loading, setLoading] = useState(true)
     const [session, setSession] = useState(null)
     const [error, setError] = useState(null)
+    const { isSignedIn,user,isLoaded } = useUser();
+    
+    const setAccountStatus = async () => {
+      if(isSignedIn){
+        const docRef = doc(collection(db, 'users'), user.id);
+        const docSnap = await getDoc(docRef);
+        if(docSnap.exists()){
+          await setDoc(docRef, {accountStatus:"PRO"},{merge:true});
+        }
+      }
+    }
 
     useEffect(() => {
         const fetchCheckoutSession = async () => {
@@ -23,6 +36,10 @@ export default function Result() {
             const sessionData = await res.json()
             if (res.ok) {
               setSession(sessionData)
+               // Only attempt to update account status if the session is loaded and payment is successful
+               if (isLoaded && sessionData.payment_status === "paid") {
+                await setAccountStatus();
+              }
             } else {
               setError(sessionData.error)
             }
@@ -32,8 +49,8 @@ export default function Result() {
             setLoading(false)
           }
         }
-        fetchCheckoutSession()
-      }, [session_id])
+        fetchCheckoutSession();
+      }, [session_id,isLoaded])
 
       if (loading) {
         return (
@@ -61,7 +78,6 @@ export default function Result() {
               {/**If the payment is successful */}
               <Typography variant="h4">Thank you for your purchase!</Typography>
               <Box sx={{mt: 2}}>
-                <Typography variant="h6">Session ID: {session_id}</Typography>
                 <Typography variant="body1">
                   We have received your payment. You will receive an email with the
                   order details shortly.

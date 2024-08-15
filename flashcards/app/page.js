@@ -207,8 +207,12 @@ export default function Home(){
                   <br />
                   - Access to new features
                 </Typography>
-                <Button variant="contained" color="primary" onClick={handleSubmit}>
+                {/**Button to upgrade not working for now, it can be reinstated when pro features are complete
+                 <Button variant="contained" color="primary" onClick={handleSubmit}>
                   Upgrade to Pro
+                </Button>*/}
+                <Button variant="contained" color="primary">
+                  Coming soon
                 </Button>
               </Card>
             </Grid>

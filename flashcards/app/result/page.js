@@ -57,7 +57,7 @@ export default function Result() {
             }
         };
         fetchCheckoutSession();
-    }, [session_id, isLoaded]);
+    }, [session_id, isLoaded,setAccountStatus]);
 
     const handleThemeChange = () => {
         setDarkMode(prevMode => !prevMode);

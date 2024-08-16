@@ -137,10 +137,10 @@ export default function Generate() {
                     </Typography>
                     <Paper elevation={3} sx={{ p: 3, bgcolor: darkMode ? 'background.default' : 'white' }}>
                         <Typography variant="body1" gutterBottom>
-                            Enter a few words or a passage from your textbook, and let our AI do the rest! Our system analyes the text and generates flashcards that help you study more effectively. Whether you're learning vocabulary, historical facts, or complex concepts, our AI can create the perfect set of flashcards tailored to your needs.
+                            Enter a few words or a passage from your textbook, and let our AI do the rest! Our system analyes the text and generates flashcards that help you study more effectively. Whether you are learning vocabulary, historical facts, or complex concepts, our AI can create the perfect set of flashcards tailored to your needs.
                         </Typography>
                         <Typography variant="body1" gutterBottom>
-                            Simply input your text in the box below, click "Generate Flashcards," and review the generated cards. You can save your flashcards to your account for future use.
+                            Simply input your text in the box below, click Generate Flashcards, and review the generated cards. You can save your flashcards to your account for future use.
                         </Typography>
                         <Typography variant="body1" gutterBottom>
                             Be aware it takes about 10 seconds to generate, so please do not close the page!
